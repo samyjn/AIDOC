@@ -202,8 +202,6 @@ def get_predicted_value(patient_symptoms):
 
 
 
-# creating routes========================================
-
 
 @app.route("/")
 def index():
@@ -221,11 +219,6 @@ def home():
             message = "Please either write symptoms or you have written misspelled symptoms"
             return render_template('index.html', message=message)
         else:
-            '''
-            # Split the user's input into a list of symptoms (assuming they are comma-separated)
-            user_symptoms = [s.strip() for s in symptoms.split(',')]
-            # Remove any extra characters, if any
-            user_symptoms = [symptom.strip("[]' ") for symptom in user_symptoms]'''
             user_symptoms = preprocess_symptoms(symptoms)
             predicted_disease = get_predicted_value(user_symptoms)
             dis_des, precautions, medications, rec_diet, workout = helper(predicted_disease)
@@ -241,8 +234,6 @@ def home():
     return render_template('index.html')
 
 
-
-# about view funtion and path
 @app.route('/about')
 def about():
     return render_template("about.html")
@@ -250,14 +241,6 @@ def about():
 @app.route('/contact')
 def contact():
     return render_template("contact.html")
-
-@app.route('/developer')
-def developer():
-    return render_template("developer.html")
-
-@app.route('/blog')
-def blog():
-    return render_template("blog.html")
 
 
 if __name__ == '__main__':
